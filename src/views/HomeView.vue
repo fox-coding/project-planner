@@ -1,25 +1,34 @@
 <template>
   <div class="home">
-      <h1 class="text-3xl font-bold underline">
+      <h1 class="text-3xl font-bold">
           project planner
       </h1>
-      <div>
-        created by fox-coding
-      </div>
-      <div>
-        <img class="m-10 inline object-cover mr-2 rounded-full shadow-lg" alt="Fox Coding Avatar" src="../assets/ava3.png">
-      </div>
+      <ul>
+        <li v-for="project in myProjects" :key="project.id">
+          <div class="details">
+            <Project :title="project.title" :description="project.description" :finished="project.finished" :created="project.created" />
+          </div>
+        </li>
+      </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Project from '@/components/Project.vue'
+import getCollection from '@/utils/getCollection'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    Project
+  },
+  setup() {
+    const { documents: myProjects } = getCollection('user/i0KIhtj6dn3v9xHzIemx/projects')
+    
+    return {
+      myProjects
+    }
   }
 }
 </script>
